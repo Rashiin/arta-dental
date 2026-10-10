@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="دندانسرای آرتا — استودیوی دندانپزشکی دیجیتال">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>دندانسرای آرتا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;800;900&family=Vazirmatn:wght@200;300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a dark, cinematic single-theme studio page. A raymarched pearl-enamel tooth sits behind oversized Kufi type (difference-blended);
+   below it: marquee, scroll-lit manifesto, hover service index, before/after smile, stacking process cards, FDI chart, booking. */
+:root{
+  --bg:#07080B; --bg2:#0E1015; --ink:#EEEBE4; --muted:#868A93; --line:rgba(238,235,228,.12);
+  --pearl-a:#8FE6EE; --pearl-b:#BCA9FF; --pearl-c:#FFC4D3; --blush:#E58C98;
+  --pearl:linear-gradient(100deg,var(--pearl-a),var(--pearl-b) 45%,var(--pearl-c));
+  --f-display:"Noto Kufi Arabic","Vazirmatn",Tahoma,sans-serif;
+  --f-body:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.85;overflow-x:hidden}
+::selection{background:var(--pearl-b);color:var(--bg)}
+.page{padding-inline:clamp(16px,3vw,40px)}
+.wrap{max-width:1320px;margin-inline:auto}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:800}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--pearl-a);outline-offset:4px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);direction:ltr;unicode-bidi:isolate}
+.pearl-text{background:var(--pearl);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec{padding-block:clamp(80px,12vw,160px)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head h2{font-family:var(--f-display);font-size:clamp(40px,7vw,104px);line-height:1.15;letter-spacing:-.02em}
+.sec-head h2 .thin{font-weight:300}
+.sec-head p{color:var(--muted);max-width:40ch}
+.tag{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--pearl);box-shadow:0 0 14px var(--pearl-b)}
+
+/* grain + progress + cursor */
+.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-reduced-motion:no-preference){.grain{animation:grain 1s steps(6) infinite}}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}}
+.progress{position:fixed;top:env(safe-area-inset-top,0px);right:0;height:2px;width:100%;transform-origin:right;transform:scaleX(0);background:var(--pearl);z-index:80}
+.cursor{position:fixed;top:0;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--ink);
+  mix-blend-mode:difference;pointer-events:none;z-index:100;transition:width .3s,height .3s,margin .3s;display:none}
+.cursor.big{width:76px;height:76px;margin:-38px 0 0 -38px}
+@media (hover:hover) and (pointer:fine){.cursor{display:block}}
+
+/* nav */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);inset-inline:0;z-index:70;padding:18px clamp(16px,3vw,40px);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;mix-blend-mode:difference;color:#fff}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:900;font-size:22px}
+.logo svg{width:26px;height:26px}
+.nav-mid{display:flex;gap:28px;font-size:14px}
+.nav-mid a{position:relative}
+.nav-mid a::after{content:"";position:absolute;inset-inline:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .35s;transform-origin:left}
+.nav-mid a:hover::after{transform:scaleX(1)}
+.nav-end{display:flex;align-items:center;gap:18px}
+.nav-end .mono{color:#fff;opacity:.7}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid currentColor;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:500}
+@media (max-width:860px){.nav-mid,.nav-end .mono{display:none}}
+
+/* hero */
+.hero{position:relative;isolation:isolate;min-height:min(100svh,980px);display:grid;grid-template-rows:auto 1fr auto;padding-block:96px 32px}
+.hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hero-title{position:relative;z-index:2;pointer-events:none;align-self:center;display:flex;flex-direction:column;font-family:var(--f-display);
+  line-height:1.02;letter-spacing:-.03em;color:#fff;mix-blend-mode:difference;padding-block:24px}
+.hero-title .ln{display:block;overflow:hidden;padding-block:.06em}
+.hero-title .ln>span{display:inline-block}
+.l1{font-size:clamp(86px,20vw,300px);font-weight:900}
+.l2{font-size:clamp(40px,8.5vw,128px);font-weight:300;align-self:flex-end;margin-top:-.15em}
+.l3{font-size:clamp(50px,12vw,182px);font-weight:900}
+.tooth-wrap{position:absolute;z-index:1;top:50%;left:50%;width:min(58vw,640px);aspect-ratio:1;max-width:100%;transform:translate(-50%,-50%);cursor:grab}
+.tooth-wrap:active{cursor:grabbing}
+.tooth-wrap canvas{width:100%;height:100%;display:block}
+.halo{position:absolute;inset:12%;border-radius:50%;filter:blur(60px);opacity:.38;background:conic-gradient(from 90deg,var(--pearl-a),var(--pearl-b),var(--pearl-c),var(--pearl-a))}
+@media (prefers-reduced-motion:no-preference){.halo{animation:spin 14s linear infinite}}
+@keyframes spin{to{transform:rotate(1turn)}}
+.fallback{position:absolute;inset:18%;display:none}
+.hero-foot{position:relative;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px}
+.hero-foot .lead{max-width:36ch;color:var(--muted);font-size:15.5px}
+.hero-foot .lead b{color:var(--ink);font-weight:500}
+.scroll-hint{justify-self:end;display:flex;align-items:center;gap:12px}
+.scroll-hint i{width:1px;height:42px;background:linear-gradient(var(--ink),transparent);display:block}
+@media (max-width:760px){
+  .hero-foot{grid-template-columns:1fr auto}.scroll-hint{display:none}
+  .tooth-wrap{width:min(92vw,520px)}
+}
+/* rotating badge */
+.badge{position:relative;width:132px;height:132px;display:grid;place-items:center;border-radius:50%}
+.badge svg.ring{position:absolute;inset:0;width:100%;height:100%}
+@media (prefers-reduced-motion:no-preference){.badge svg.ring{animation:spin 16s linear infinite}}
+.badge text{font-family:var(--f-body);font-size:10.6px;font-weight:500;fill:var(--ink);direction:ltr}
+.badge .core{width:64px;height:64px;border-radius:50%;background:var(--pearl);display:grid;place-items:center;color:var(--bg);transition:transform .4s}
+.badge:hover .core{transform:scale(1.15) rotate(-45deg)}
+.badge .core svg{width:22px;height:22px}
+
+/* hero intro */
+@media (prefers-reduced-motion:no-preference){
+  .hero-title .ln>span{animation:lineUp 1s cubic-bezier(.16,1,.3,1) both}
+  .l2>span{animation-delay:.1s!important}.l3>span{animation-delay:.2s!important}
+  .tooth-wrap{animation:fadeScale 1.4s .15s cubic-bezier(.16,1,.3,1) both}
+  .hero-meta,.hero-foot{animation:fade 1s .5s both}
+}
+@keyframes lineUp{from{transform:translateY(105%) rotate(4deg)}}
+@keyframes fadeScale{from{opacity:0;transform:translate(-50%,-50%) scale(.82)}}
+@keyframes fade{from{opacity:0}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:18px;margin-inline:calc(-1*clamp(16px,3vw,40px));direction:ltr}
+.mq-row{display:flex;width:max-content;gap:0}
+.mq-row span{font-family:var(--f-display);font-weight:900;font-size:clamp(44px,7vw,96px);line-height:1.3;padding-inline:28px;white-space:nowrap;direction:rtl}
+.mq-row span.o{color:transparent;-webkit-text-stroke:1.2px var(--ink);font-weight:800}
+.mq-row span.s{color:var(--pearl-b);font-size:clamp(30px,4vw,56px);align-self:center}
+@media (prefers-reduced-motion:no-preference){
+  .mq-row.a{animation:mq 38s linear infinite}.mq-row.b{animation:mq 46s linear infinite reverse}
+}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* manifesto */
+.manifesto p{font-family:var(--f-display);font-weight:500;font-size:clamp(28px,4.4vw,64px);line-height:1.45;letter-spacing:-.01em;max-width:22em}
+.manifesto .w{opacity:.22;transition:opacity .4s}
+.manifesto .w.on{opacity:1}
+.manifesto .w.hl{background:var(--pearl);-webkit-background-clip:text;background-clip:text;color:transparent}
+.manifesto-foot{display:flex;gap:clamp(24px,6vw,96px);flex-wrap:wrap;margin-top:56px}
+.manifesto-foot div{border-top:1px solid var(--line);padding-top:14px;min-width:180px;flex:1}
+.manifesto-foot b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(40px,5vw,72px);line-height:1.15}
+.manifesto-foot span{color:var(--muted);font-size:14px}
+
+/* service index */
+.svc-list{border-top:1px solid var(--line)}
+.svc{position:relative;display:grid;grid-template-columns:110px 1fr minmax(0,36ch) 44px;gap:24px;align-items:center;padding-block:28px;border-bottom:1px solid var(--line);cursor:pointer}
+.svc>*{min-width:0}
+.svc .code{transition:color .3s}
+.svc h3{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,4.6vw,66px);line-height:1.2;transition:transform .5s cubic-bezier(.16,1,.3,1),color .3s}
+.svc p{color:var(--muted);font-size:15px}
+.svc .meta{margin-top:8px}
+.svc .arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.svc .arrow svg{width:16px;height:16px}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(188,169,255,.07),transparent);opacity:0;transition:opacity .4s;pointer-events:none}
+.svc:hover::before{opacity:1}
+.svc:hover h3{transform:translateX(-18px)}
+.svc:hover .code{color:var(--pearl-a)}
+.svc:hover .arrow{background:var(--ink);color:var(--bg);transform:rotate(-45deg)}
+@media (max-width:860px){.svc{grid-template-columns:1fr 44px;grid-template-areas:"code code" "title arrow" "desc desc";gap:10px 16px}.svc .code{grid-area:code}.svc h3{grid-area:title}.svc>div{grid-area:desc}.svc .arrow{grid-area:arrow}}
+.peek{position:fixed;top:0;left:0;width:220px;height:280px;margin:-140px 0 0 -110px;border-radius:120px 120px 24px 24px;pointer-events:none;z-index:60;
+  background:var(--pearl);display:grid;place-items:center;color:var(--bg);opacity:0;transform:scale(.6);transition:opacity .35s,transform .45s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.peek.show{opacity:1;transform:scale(1)}
+.peek svg{width:96px;height:96px}
+.peek .mono{position:absolute;bottom:16px;color:var(--bg);opacity:.8}
+@media (hover:none){.peek{display:none}}
+
+/* before / after */
+.ba{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(24px,5vw,72px);align-items:center}
+.ba>*{min-width:0}
+@media (max-width:900px){.ba{grid-template-columns:1fr}}
+.ba-copy h2{font-family:var(--f-display);font-size:clamp(38px,5.4vw,80px);line-height:1.15;letter-spacing:-.02em}
+.ba-copy p{color:var(--muted);margin-top:18px;max-width:40ch}
+.shades{display:flex;gap:10px;margin-top:28px;align-items:center;direction:ltr;flex-wrap:wrap}
+.shades i{width:26px;height:36px;border-radius:5px 5px 12px 12px;display:block}
+.shades .arrow-s{color:var(--muted);font-family:var(--f-mono);font-size:12px}
+.cmp{position:relative;border-radius:28px;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#2a1418 0%,#120a0c 70%);aspect-ratio:16/10;max-width:100%;direction:ltr;user-select:none;touch-action:pan-y}
+.cmp svg{position:absolute;inset:0;width:100%;height:100%}
+.cmp .after{clip-path:inset(0 0 0 var(--x,50%))}
+.cmp .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--ink);transform:translateX(-1px);pointer-events:none}
+.cmp .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:20px}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp .lbl{position:absolute;bottom:16px;padding:6px 12px;border-radius:999px;background:rgba(7,8,11,.6);backdrop-filter:blur(8px);color:var(--ink)}
+.cmp .lbl.l{left:16px}.cmp .lbl.r{right:16px}
+
+/* process stack */
+.stack{display:flex;flex-direction:column;gap:28px}
+.card{position:sticky;top:calc(96px + var(--i)*26px);min-height:360px;border-radius:32px;padding:clamp(24px,4vw,52px);
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,56px);align-items:start;border:1px solid var(--line);
+  background:var(--bg2);box-shadow:0 -30px 60px -20px rgba(0,0,0,.6);overflow:hidden}
+.card>*{min-width:0;position:relative}
+.card::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(90px);opacity:.22;top:-260px;left:-160px;background:var(--c)}
+.card .n{font-family:var(--f-display);font-weight:900;font-size:clamp(90px,14vw,200px);line-height:.85;color:transparent;-webkit-text-stroke:1.5px var(--c)}
+.card h3{font-family:var(--f-display);font-size:clamp(30px,4vw,54px);line-height:1.2}
+.card p{color:var(--muted);max-width:44ch;margin-top:14px;font-size:16.5px}
+.card .spec{text-align:left;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.card .spec b{font-family:var(--f-display);font-size:24px}
+@media (max-width:760px){.card{grid-template-columns:1fr}.card .spec{align-items:flex-start}}
+
+/* FDI chart */
+.chart{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);align-items:center}
+.chart>*{min-width:0}
+@media (max-width:900px){.chart{grid-template-columns:1fr}}
+#arch{width:100%;max-width:520px;height:auto;display:block;margin-inline:auto;direction:ltr;overflow:visible}
+#arch .t{fill:rgba(238,235,228,.05);stroke:rgba(238,235,228,.4);stroke-width:1.2;cursor:pointer;transition:fill .25s,stroke .25s,filter .25s}
+#arch .t:hover{fill:rgba(188,169,255,.25);stroke:var(--pearl-b)}
+#arch .t.on{fill:url(#pg);stroke:#fff;filter:drop-shadow(0 0 10px rgba(188,169,255,.8))}
+#arch text{fill:var(--muted);font-size:9px;font-family:var(--f-mono);pointer-events:none}
+#arch .side{font-family:var(--f-body);font-size:11px;fill:var(--ink)}
+.tinfo .big{font-family:var(--f-display);font-weight:900;font-size:clamp(110px,16vw,220px);line-height:.9;direction:ltr;display:inline-block}
+.tinfo h3{font-family:var(--f-display);font-size:clamp(26px,3vw,40px);margin-top:14px}
+.tinfo .where{color:var(--muted)}
+.tinfo ul{list-style:none;padding:0;margin:22px 0 28px;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.tinfo li{padding-block:12px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:baseline}
+.tinfo li .mono{flex:none}
+
+.btn{display:inline-flex;align-items:center;gap:12px;border:0;cursor:pointer;font:inherit;font-weight:500;font-size:15px;
+  padding:14px 26px;border-radius:999px;background:var(--ink);color:var(--bg);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.btn.p{background:var(--pearl)}
+.btn svg{width:16px;height:16px}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.team{grid-template-columns:1fr}}
+.doc{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:3/3.6;max-width:100%;background:var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+@media (max-width:900px){.doc{aspect-ratio:auto;min-height:340px}}
+.doc .mono-big{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:clamp(180px,22vw,300px);line-height:1;color:transparent;
+  background:var(--g);-webkit-background-clip:text;background-clip:text;opacity:.85;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.doc:hover{transform:translateY(-6px)}
+.doc:hover .mono-big{transform:scale(1.08) rotate(-4deg)}
+.doc>div{position:relative}
+.doc h3{font-family:var(--f-display);font-size:24px}
+.doc p{color:var(--muted);font-size:14px;line-height:1.7}
+
+/* booking */
+.book{position:relative;border-radius:40px;overflow:hidden;padding:clamp(24px,5vw,72px);background:var(--bg2);border:1px solid var(--line)}
+.book::before{content:"";position:absolute;inset:auto -10% -60% -10%;height:120%;background:radial-gradient(ellipse at 50% 100%,rgba(188,169,255,.35),rgba(143,230,238,.12) 40%,transparent 70%);pointer-events:none}
+.book>*{position:relative}
+.book h2{font-family:var(--f-display);font-size:clamp(46px,9vw,140px);line-height:1.05;letter-spacing:-.03em}
+.book h2 .thin{font-weight:300}
+.book-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,5vw,72px);margin-top:48px}
+.book-grid>*{min-width:0}
+@media (max-width:900px){.book-grid{grid-template-columns:1fr}}
+.contact{display:flex;flex-direction:column}
+.contact div{display:flex;justify-content:space-between;gap:14px;padding-block:14px;border-bottom:1px solid var(--line);font-size:15px}
+.contact span{color:var(--muted)}
+.contact b{font-weight:500;direction:ltr;user-select:all}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+form .full{grid-column:1/-1}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+label,.fl{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted)}
+input,select{font:inherit;font-size:16px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(238,235,228,.25);padding:10px 2px;width:100%;min-width:0;border-radius:0}
+select option{background:var(--bg2);color:var(--ink)}
+input::placeholder{color:rgba(238,235,228,.3)}
+input:focus,select:focus{outline:none;border-bottom-color:var(--pearl-a)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:14px;cursor:pointer;padding:8px 16px;border-radius:999px;border:1px solid rgba(238,235,228,.22);background:transparent;color:var(--ink);transition:all .25s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.err{color:var(--blush);font-size:14px;min-height:1.4em}
+.done{grid-column:1/-1;border-radius:18px;padding:18px;border:1px solid var(--pearl-b);background:rgba(188,169,255,.08)}
+
+/* footer */
+footer{padding-block:80px 32px;overflow:hidden}
+.foot-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.wordmark{font-family:var(--f-display);font-weight:900;font-size:clamp(120px,34vw,520px);line-height:.95;letter-spacing:-.05em;text-align:center;margin-top:24px;
+  background:linear-gradient(180deg,var(--ink) 20%,transparent 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.foot-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px}
+
+/* scroll reveals: driven by scroll position, so whatever is on screen renders in its finished state */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+    @keyframes rv{from{opacity:.15;transform:translateY(60px)}}
+    .wordmark{animation:wm linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+    @keyframes wm{from{transform:translateY(30%) scale(.92)}}
+  }
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="peek" id="peek" aria-hidden="true"><svg viewBox="0 0 24 24" id="peekIcon"></svg><span class="mono" id="peekCode"></span></div>
+
+<div class="page" dir="rtl" lang="fa">
+  <nav class="nav" aria-label="منوی اصلی">
+    <a class="logo" href="#top" data-hover>
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 6c-3-2.6-9-2.4-10 3-.8 4.2 1.4 6.8 2.2 11 .7 3.6 1.2 7 3.3 7 2.4 0 2-6.4 4.5-6.4s2.1 6.4 4.5 6.4c2.1 0 2.6-3.4 3.3-7 .8-4.2 3-6.8 2.2-11-1-5.4-7-5.6-10-3z" fill="currentColor"/></svg>
+      آرتا
+    </a>
+    <div class="nav-mid">
+      <a href="#services" data-hover>خدمات</a>
+      <a href="#result" data-hover>نتیجه</a>
+      <a href="#process" data-hover>مسیر درمان</a>
+      <a href="#chart" data-hover>نقشهٔ دندان</a>
+    </div>
+    <div class="nav-end">
+      <span class="mono" id="clock">TEHRAN —</span>
+      <a class="pill" href="#book" data-hover>رزرو نوبت</a>
+    </div>
+  </nav>
+
+  <main class="wrap" id="top">
+    <section class="hero">
+      <div class="hero-meta">
+        <span class="mono">Arta Dental Studio / Velenjak</span>
+        <span class="mono">35.80°N — 51.41°E</span>
+        <span class="mono">VITA A3.5 → B1</span>
+      </div>
+
+      <div class="tooth-wrap" id="toothWrap">
+        <div class="halo"></div>
+        <canvas id="gl" aria-label="مدل سه‌بعدی دندان آسیا؛ با موس بچرخانید" role="img"></canvas>
+        <svg class="fallback" id="fallback" viewBox="0 0 200 230" aria-hidden="true"><path fill="#EEEBE4" d="M100 28c-20-18-66-20-74 18-6 30 10 50 16 80 6 30 9 82 27 82 19 0 15-52 31-52s12 52 31 52c18 0 21-52 27-82 6-30 22-50 16-80-8-38-54-36-74-18z"/></svg>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ln l1"><span>لبخند</span></span>
+        <span class="ln l2"><span>را از نو</span></span>
+        <span class="ln l3"><span>طراحی می‌کنیم</span></span>
+      </h1>
+
+      <div class="hero-foot">
+        <p class="lead"><b>استودیوی دندانپزشکی دیجیتال.</b> اسکن سه‌بعدی بدون قالب، طراحی لبخند روی چهرهٔ خودتان و ایمپلنت با راهنمای چاپ‌شده.</p>
+        <a class="badge" href="#book" data-hover aria-label="رزرو مشاورهٔ رایگان">
+          <svg class="ring" viewBox="0 0 132 132" aria-hidden="true">
+            <defs><path id="circ" d="M66 66m-52 0a52 52 0 1 1 104 0a52 52 0 1 1-104 0"/></defs>
+            <text direction="ltr"><textPath href="#circ" textLength="322" lengthAdjust="spacing">مشاورهٔ رایگان ✦ اسکن سه‌بعدی ✦ مشاورهٔ رایگان ✦ اسکن سه‌بعدی ✦</textPath></text>
+          </svg>
+          <span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 7 7 17M7 8v9h9"/></svg></span>
+        </a>
+        <div class="scroll-hint"><span class="mono">Scroll</span><i></i></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="mq-row a" id="mqA"></div>
+      <div class="mq-row b" id="mqB"></div>
+    </div>
+
+    <section class="sec manifesto">
+      <span class="mono tag">( Manifesto )</span>
+      <p id="manifesto">ما هر لبخند را اول روی صفحه می‌سازیم. اسکن سه‌بعدی با دقت *۰.۱ میلی‌متر،* طراحی دیجیتال روی عکس خودتان و ماک‌آپ آزمایشی روی دندان. کار روی مینا فقط وقتی شروع می‌شود که *نتیجه را پسندیده‌اید.*</p>
+      <div class="manifesto-foot">
+        <div><b data-to="14">۱۴</b><span>سال تجربهٔ تیم درمان</span></div>
+        <div><b data-to="6200" data-plus>۶٬۲۰۰+</b><span>طراحی لبخند انجام‌شده</span></div>
+        <div><b data-to="10">۱۰</b><span>سال ضمانت ایمپلنت</span></div>
+        <div><b>۰.۱</b><span>میلی‌متر دقت اسکنر</span></div>
+      </div>
+    </section>
+
+    <section class="sec" id="services" style="padding-top:0">
+      <div class="sec-head rv">
+        <div><span class="mono tag">( Services — 06 )</span><h2>خدمات <span class="thin">استودیو</span></h2></div>
+        <p>تعداد جلسه و زمان هر درمان از همان روز اول روشن است. هزینه بعد از معاینه و اسکن، مکتوب اعلام می‌شود.</p>
+      </div>
+      <div class="svc-list" id="svcList"></div>
+    </section>
+
+    <section class="sec" id="result" style="padding-top:0">
+      <div class="ba">
+        <div class="ba-copy rv">
+          <span class="mono tag">( Before / After )</span>
+          <h2>چهار شید روشن‌تر، <span class="pearl-text">یک جلسه</span></h2>
+          <p>دستگیره را بکشید. سمت چپ رنگ A3.5، رایج‌ترین رنگ مراجعه‌کنندگان ما. سمت راست B1، نتیجهٔ معمول یک جلسه بلیچینگ مطب ۶۰ دقیقه‌ای.</p>
+          <div class="shades" id="shadeRow"></div>
+        </div>
+        <div class="cmp rv" id="cmp">
+          <svg id="smileBefore" viewBox="0 0 600 375" aria-hidden="true"></svg>
+          <svg id="smileAfter" class="after" viewBox="0 0 600 375" aria-hidden="true"></svg>
+          <div class="handle"></div>
+          <span class="lbl l mono">Before · A3.5</span>
+          <span class="lbl r mono">After · B1</span>
+          <input type="range" id="cmpRange" min="0" max="100" value="50" aria-label="مقایسهٔ قبل و بعد از بلیچینگ">
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="process" style="padding-top:0">
+      <div class="sec-head rv">
+        <div><span class="mono tag">( Process )</span><h2>از اسکن <span class="thin">تا لبخند</span></h2></div>
+        <p>چهار مرحله، همیشه به همین ترتیب. هیچ تراشی قبل از تأیید طراحی انجام نمی‌شود.</p>
+      </div>
+      <div class="stack">
+        <article class="card" style="--i:0;--c:var(--pearl-a)"><span class="n">۱</span><div><h3>اسکن سه‌بعدی</h3><p>بدون خمیر قالب‌گیری. اسکنر داخل دهانی کل فک را در چند دقیقه ثبت می‌کند و مدل را همان لحظه روی مانیتور می‌بینید.</p></div><div class="spec"><span class="mono">Duration</span><b>۲۰ دقیقه</b></div></article>
+        <article class="card" style="--i:1;--c:var(--pearl-b)"><span class="n">۲</span><div><h3>طراحی دیجیتال لبخند</h3><p>فرم، طول و رنگ دندان‌ها روی عکس چهرهٔ خودتان شبیه‌سازی می‌شود. تا راضی نباشید، طرح عوض می‌شود.</p></div><div class="spec"><span class="mono">Session 02</span><b>۴۵ دقیقه</b></div></article>
+        <article class="card" style="--i:2;--c:var(--pearl-c)"><span class="n">۳</span><div><h3>ماک‌آپ و درمان</h3><p>نسخهٔ موقت طرح روی دندان امتحان می‌شود. بعد درمان با بی‌حسی کامپیوتری و طبق برنامهٔ امضاشده انجام می‌شود.</p></div><div class="spec"><span class="mono">Varies</span><b>بسته به درمان</b></div></article>
+        <article class="card" style="--i:3;--c:var(--blush)"><span class="n">۴</span><div><h3>پیگیری</h3><p>چکاپ یک‌ماهه و شش‌ماهه رایگان، با یادآوری پیامکی. ضمانت‌نامهٔ کتبی تحویل می‌گیرید.</p></div><div class="spec"><span class="mono">Follow-up</span><b>۱ و ۶ ماه</b></div></article>
+      </div>
+    </section>
+
+    <section class="sec" id="chart" style="padding-top:0">
+      <div class="sec-head rv">
+        <div><span class="mono tag">( FDI Chart · 11—48 )</span><h2>کجا <span class="thin">درد می‌کند؟</span></h2></div>
+        <p>روی دندان بزنید. شمارهٔ بین‌المللی آن را می‌بینید و می‌توانید مستقیم در فرم نوبت ثبتش کنید.</p>
+      </div>
+      <div class="chart">
+        <svg id="arch" viewBox="0 0 400 440" role="group" aria-label="نقشهٔ دندان‌ها">
+          <defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FE6EE"/><stop offset=".5" stop-color="#BCA9FF"/><stop offset="1" stop-color="#FFC4D3"/></linearGradient></defs>
+        </svg>
+        <div class="tinfo" aria-live="polite">
+          <span class="big pearl-text" id="tNum">36</span>
+          <h3 id="tName"></h3>
+          <p class="where" id="tWhere"></p>
+          <ul id="tCare"></ul>
+          <button class="btn p" type="button" id="tUse" data-hover>ثبت این دندان در فرم نوبت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="team" style="padding-top:0">
+      <div class="sec-head rv">
+        <div><span class="mono tag">( Doctors )</span><h2>پزشکان <span class="thin">استودیو</span></h2></div>
+      </div>
+      <div class="team">
+        <article class="doc rv" style="--g:linear-gradient(160deg,#8FE6EE,#BCA9FF)" data-hover><span class="mono-big" aria-hidden="true">س</span><div><span class="mono">Prosthodontist</span><h3>دکتر سارا رهنما</h3><p>متخصص پروتزهای دندانی؛ لمینت و طراحی لبخند</p></div></article>
+        <article class="doc rv" style="--g:linear-gradient(160deg,#BCA9FF,#FFC4D3)" data-hover><span class="mono-big" aria-hidden="true">ک</span><div><span class="mono">Oral Surgeon</span><h3>دکتر کاوه نیک‌پور</h3><p>جراح فک و صورت؛ ایمپلنت و دندان عقل</p></div></article>
+        <article class="doc rv" style="--g:linear-gradient(160deg,#FFC4D3,#E58C98)" data-hover><span class="mono-big" aria-hidden="true">م</span><div><span class="mono">Orthodontist</span><h3>دکتر مهتاب آذری</h3><p>متخصص ارتودنسی؛ الاینر شفاف و کودکان</p></div></article>
+      </div>
+    </section>
+
+    <section class="sec" id="book" style="padding-top:0">
+      <div class="book">
+        <span class="mono tag">( Booking )</span>
+        <h2>یک قدم تا <span class="thin pearl-text">لبخند تازه</span></h2>
+        <div class="book-grid">
+          <div>
+            <p style="color:var(--muted);max-width:36ch;margin-bottom:24px">اولین مشاوره و اسکن رایگان است. روز و ساعت را انتخاب کنید؛ منشی برای تأیید نهایی تماس می‌گیرد.</p>
+            <div class="contact">
+              <div><span>تلفن</span><b>021-2200 0000</b></div>
+              <div><span>ساعت کاری</span>شنبه تا پنجشنبه، ۹ تا ۲۰</div>
+              <div><span>نشانی</span>ولنجک، خیابان نوزدهم، پلاک ۱۲</div>
+            </div>
+          </div>
+          <form id="form" novalidate>
+            <label>نام و نام خانوادگی<input id="fName" autocomplete="name" placeholder="مثلاً نگار صادقی"></label>
+            <label>شمارهٔ همراه<input id="fPhone" inputmode="tel" dir="ltr" placeholder="0912 000 0000"></label>
+            <label>نوع خدمت<select id="fSvc"></select></label>
+            <label>دندان (اختیاری)<input id="fTooth" placeholder="از نقشهٔ دندان انتخاب کنید"></label>
+            <div class="fl full">روز<div class="chips" id="days"></div></div>
+            <div class="fl full">ساعت<div class="chips" id="times"></div></div>
+            <p class="err full" id="err" role="alert"></p>
+            <div class="full"><button class="btn p" type="submit" data-hover>ثبت درخواست نوبت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="foot-top">
+      <span>ولنجک، خیابان نوزدهم، پلاک ۱۲</span>
+      <span>شنبه تا پنجشنبه · ۹ تا ۲۰</span>
+      <span class="mono" style="color:var(--muted)">021-2200 0000</span>
+    </div>
+    <div class="wordmark" aria-hidden="true">آرتا</div>
+    <div class="foot-bot">
+      <span class="mono">© Arta Dental Studio — Concept site</span>
+      <span style="color:var(--muted);font-size:13px">نام کلینیک، پزشکان، آمار و اطلاعات تماس نمونه هستند.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const fa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ---------- WebGL raymarched tooth ---------- */
+(function(){
+  const cv=document.getElementById('gl'), wrap=document.getElementById('toothWrap');
+  const gl=cv.getContext('webgl',{premultipliedAlpha:true,antialias:false,alpha:true});
+  if(!gl){document.getElementById('fallback').style.display='block';cv.hidden=true;return}
+  const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+  const fs=`precision highp float;
+uniform vec2 R;uniform float T;uniform vec2 M;
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
+float smax(float a,float b,float k){return -smin(-a,-b,k);}
+float sdEll(vec3 p,vec3 r){float k0=length(p/r);float k1=length(p/(r*r));return k0*(k0-1.)/k1;}
+float sdRC(vec3 p,vec3 a,vec3 b,float r1,float r2){
+  vec3 ba=b-a;float l2=dot(ba,ba);float rr=r1-r2;float a2=l2-rr*rr;float il2=1./l2;
+  vec3 pa=p-a;float y=dot(pa,ba);float z=y-l2;vec3 xv=pa*l2-ba*y;float x2=dot(xv,xv);float y2=y*y*l2;float z2=z*z*l2;
+  float k=sign(rr)*rr*rr*x2;
+  if(sign(z)*a2*z2>k)return sqrt(x2+z2)*il2-r2;
+  if(sign(y)*a2*y2<k)return sqrt(x2+y2)*il2-r1;
+  return (sqrt(x2*a2*il2)+y*rr)*il2-r1;}
+vec3 tr(vec3 p){
+  p.yz*=rot(-.38+M.y*.5);
+  p.xz*=rot(T*.35+M.x*2.4);
+  p.xy*=rot(.1*sin(T*.6));
+  p.y-=.12;
+  return p;}
+float map(vec3 q){
+  vec3 p=tr(q);
+  float d=sdEll(p-vec3(0.,.38,0.),vec3(.98,.6,.84));
+  d=smin(d,length(p-vec3(.44,.74,.36))-.33,.24);
+  d=smin(d,length(p-vec3(-.44,.74,.36))-.33,.24);
+  d=smin(d,length(p-vec3(.44,.72,-.36))-.33,.24);
+  d=smin(d,length(p-vec3(-.44,.72,-.36))-.33,.24);
+  d=smax(d,-(length(p-vec3(0.,1.22,0.))-.42),.18);
+  float r=smin(sdRC(p,vec3(.38,.05,0.),vec3(.58,-1.45,.05),.38,.08),sdRC(p,vec3(-.38,.05,0.),vec3(-.5,-1.38,-.05),.38,.08),.12);
+  d=smin(d,r,.38);
+  return d;}
+vec3 nrm(vec3 p){vec2 e=vec2(.0015,-.0015);return normalize(e.xyy*map(p+e.xyy)+e.yyx*map(p+e.yyx)+e.yxy*map(p+e.yxy)+e.xxx*map(p+e.xxx));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  vec3 ro=vec3(0.,0.,4.4),rd=normalize(vec3(uv,-1.45));
+  float t=0.;float h;int hit=0;float st=0.;
+  for(int i=0;i<96;i++){vec3 p=ro+rd*t;h=map(p);if(h<.0012){hit=1;break;}t+=h*.8;st+=1.;if(t>8.)break;}
+  if(hit==0){gl_FragColor=vec4(0.);return;}
+  vec3 p=ro+rd*t,n=nrm(p),v=-rd,lp=tr(p);
+  vec3 L1=normalize(vec3(.55,.75,.7)),L2=normalize(vec3(-.8,.1,-.3));
+  float nv=max(dot(n,v),0.);float fr=pow(1.-nv,2.6);
+  float dif=clamp(dot(n,L1)*.6+.4,0.,1.);float dif2=clamp(dot(n,L2)*.5+.5,0.,1.);
+  vec3 enamel=vec3(.96,.94,.9);vec3 dentin=vec3(.86,.78,.64);
+  vec3 base=mix(dentin,enamel,smoothstep(-.35,.15,lp.y));
+  vec3 irid=.55+.45*cos(6.2831*(fr*1.1+lp.y*.35+vec3(.0,.33,.67)+T*.04));
+  vec3 col=base*(.32+.75*dif)+vec3(.55,.5,.75)*dif2*.18;
+  col=mix(col,irid,fr*.85);
+  float sp=pow(max(dot(reflect(-L1,n),v),0.),70.);
+  float sp2=pow(max(dot(reflect(-L2,n),v),0.),24.)*.35;
+  col+=vec3(1.)*sp*1.3+vec3(.7,.9,1.)*sp2;
+  float sss=pow(clamp(1.-nv,0.,1.),1.5)*max(dot(n,-L1)*.5+.5,0.)*.25;col+=vec3(1.,.8,.75)*sss;
+  col*=1.-st/180.;
+  col=pow(col,vec3(.95));
+  gl_FragColor=vec4(col,1.);
+}`;
+  function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(o);return o}
+  let pr;
+  try{pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw gl.getProgramInfoLog(pr)}
+  catch(e){console.warn(e);document.getElementById('fallback').style.display='block';cv.hidden=true;return}
+  gl.useProgram(pr);
+  const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uM=gl.getUniformLocation(pr,'M');
+  function size(){const d=Math.min(devicePixelRatio||1,1.5);const w=cv.clientWidth,h=cv.clientHeight;cv.width=Math.max(1,w*d|0);cv.height=Math.max(1,h*d|0);gl.viewport(0,0,cv.width,cv.height)}
+  size();addEventListener('resize',size);
+  let tx=0,ty=0,mx=0,my=0,drag=null,spin=0,visible=true,start=performance.now();
+  addEventListener('pointermove',e=>{
+    if(drag){spin+=(e.clientX-drag)/220;drag=e.clientX}
+    tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);
+  });
+  wrap.addEventListener('pointerdown',e=>{drag=e.clientX});
+  addEventListener('pointerup',()=>drag=null);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible)requestAnimationFrame(loop)}).observe(cv);
+  function loop(now){
+    mx+=(tx+spin-mx)*.06;my+=(ty-my)*.06;
+    gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,reduce?2.:(now-start)/1000);gl.uniform2f(uM,mx,my);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(visible)requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ---------- cursor, progress, clock ---------- */
+const cur=document.getElementById('cursor');let cx=0,cy=0,px=0,py=0;
+addEventListener('pointermove',e=>{cx=e.clientX;cy=e.clientY});
+(function f(){px+=(cx-px)*.2;py+=(cy-py)*.2;cur.style.transform=`translate(${px}px,${py}px)`;requestAnimationFrame(f)})();
+document.addEventListener('pointerover',e=>{cur.classList.toggle('big',!!e.target.closest('[data-hover],a,button,.t'))});
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.transform=`scaleX(${h.scrollTop/(h.scrollHeight-h.clientHeight)})`},{passive:true});
+const clk=document.getElementById('clock');
+const tf=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+const tick=()=>clk.textContent='TEHRAN '+tf.format(new Date());tick();setInterval(tick,1000);
+
+/* ---------- marquee ---------- */
+const mqWords=['ایمپلنت دیجیتال','لمینت','بلیچینگ','الاینر شفاف','عصب‌کشی میکروسکوپی','طراحی لبخند'];
+function fillMq(el,offset){
+  let html='';for(let r=0;r<2;r++)mqWords.forEach((w,i)=>{html+=`<span class="${(i+offset)%2?'o':''}">${w}</span><span class="s">✦</span>`});
+  el.innerHTML=html;
+}
+fillMq(document.getElementById('mqA'),0);fillMq(document.getElementById('mqB'),1);
+
+/* ---------- manifesto word-lighting ---------- */
+const man=document.getElementById('manifesto');
+{
+  let hl=false;
+  man.innerHTML=man.textContent.split(/\s+/).map(w=>{
+    if(w.startsWith('*')){hl=true;w=w.slice(1)}
+    let cls='w'+(hl?' hl':'');
+    if(w.endsWith('*')){w=w.slice(0,-1);const s=`<span class="${cls}">${w}</span>`;hl=false;return s}
+    return `<span class="${cls}">${w}</span>`;
+  }).join(' ');
+}
+const words=[...man.querySelectorAll('.w')];
+function lightWords(){
+  const r=man.getBoundingClientRect();const p=(innerHeight*.85-r.top)/(r.height+innerHeight*.35);
+  const k=Math.round(Math.max(0,Math.min(1,p))*words.length);
+  words.forEach((w,i)=>w.classList.toggle('on',reduce||i<k));
+}
+addEventListener('scroll',lightWords,{passive:true});lightWords();
+
+/* ---------- count-up ---------- */
+{const io=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(!e.isIntersecting)return;io.unobserve(e.target);if(reduce)return;
+  const el=e.target,to=+el.dataset.to,plus='plus' in el.dataset,t0=performance.now();
+  (function s(now){const k=Math.min(1,(now-t0)/1400),v=Math.round(to*(1-Math.pow(1-k,3)));
+    el.textContent=v.toLocaleString('fa-IR')+(plus?'+':'');if(k<1)requestAnimationFrame(s)})(t0);
+}),{threshold:.6});document.querySelectorAll('[data-to]').forEach(el=>io.observe(el));}
+
+/* ---------- services ---------- */
+const icons={
+  implant:'<path d="M8 3h8l-1 5H9z M10 8v2h4V8 M9.5 11h5 M10 13.5h4 M10.5 16h3 M11 18.5h2L12 21z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
+  veneer:'<path d="M6 4c4-1.5 8-1.5 12 0-.5 7-2 13-6 16C8 17 6.5 11 6 4z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 7c2-.6 4-.6 6 0" stroke="currentColor" stroke-width="1.3" fill="none"/>',
+  white:'<circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="currentColor" stroke-width="1.3"/>',
+  align:'<path d="M3 9c3-3 15-3 18 0v3c-3 3-15 3-18 0z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M7 7.5v6M12 7v7M17 7.5v6" stroke="currentColor" stroke-width="1.2"/>',
+  root:'<path d="M12 4c-2-1.5-6-1.3-6.6 2-.5 2.7 1 4.4 1.5 7 .5 2.4.8 6 2.1 6 1.5 0 1.2-4 3-4s1.5 4 3 4c1.3 0 1.6-3.6 2.1-6 .5-2.6 2-4.3 1.5-7C18 2.7 14 2.5 12 4z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 7v8" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 2"/>',
+  kid:'<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 14c2 2.5 6 2.5 8 0" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/>'
+};
+const services=[
+  ['implant','IMP','ایمپلنت دیجیتال','جراحی با راهنمای سه‌بعدی چاپ‌شده؛ محل دقیق پیچ پیش از جراحی مشخص است.','2 sessions · 3 months'],
+  ['veneer','VEN','لمینت و کامپوزیت','فرم و رنگ تازه با حداقل تراش مینا و ماک‌آپ آزمایشی روی دندان خودتان.','3 sessions · 2 weeks'],
+  ['white','WHT','بلیچینگ مطب','تا چهار شید روشن‌تر در یک تا دو جلسه، همراه ژل ضدحساسیت.','1–2 sessions · 60 min'],
+  ['align','ALN','ارتودنسی شفاف','الاینرهای نامرئی که هر دو هفته عوض می‌شوند. بدون براکت و سیم.','6–18 months'],
+  ['root','END','عصب‌کشی میکروسکوپی','درمان ریشه با بزرگنمایی و روتاری؛ معمولاً در یک جلسه تمام می‌شود.','1 session · 90 min'],
+  ['kid','PED','دندانپزشکی کودکان','اتاق مخصوص بچه‌ها، فیشورسیلانت و فلورایدتراپی، با حوصلهٔ کافی.','From age 3 · 30 min']
+];
+const list=document.getElementById('svcList'),sel=document.getElementById('fSvc');
+sel.innerHTML='<option>معاینه و مشاوره</option>';
+services.forEach(([ic,code,t,d,m],i)=>{
+  list.insertAdjacentHTML('beforeend',`<a class="svc rv" href="#book" data-svc="${i}">
+    <span class="mono code">${String(i+1).padStart(2,'0')} / ${code}</span>
+    <h3>${t}</h3>
+    <div><p>${d}</p><p class="mono meta">${m}</p></div>
+    <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span></a>`);
+  sel.insertAdjacentHTML('beforeend',`<option>${t}</option>`);
+});
+const peek=document.getElementById('peek');let qx=0,qy=0,kx=0,ky=0;
+list.querySelectorAll('.svc').forEach(r=>{
+  r.addEventListener('pointerenter',()=>{const s=services[+r.dataset.svc];document.getElementById('peekIcon').innerHTML=icons[s[0]];document.getElementById('peekCode').textContent=s[1];peek.classList.add('show')});
+  r.addEventListener('pointerleave',()=>peek.classList.remove('show'));
+  r.addEventListener('click',()=>{sel.value=services[+r.dataset.svc][2]});
+});
+addEventListener('pointermove',e=>{qx=e.clientX;qy=e.clientY});
+(function f(){kx+=(qx-kx)*.12;ky+=(qy-ky)*.12;const tilt=(qx-kx)*.08;peek.style.translate=`${kx}px ${ky}px`;peek.style.rotate=`${tilt}deg`;requestAnimationFrame(f)})();
+
+/* ---------- before / after smile ---------- */
+const NS='http://www.w3.org/2000/svg';
+function smile(svg,shade,id){
+  const W=600,cx=300;
+  const up=[[54,112],[42,100],[36,104],[33,88],[31,78],[30,70]];
+  const lo=[[30,70],[30,72],[32,76],[34,72],[34,66]];
+  let teeth='';
+  const mouth='M58 150 Q300 30 542 150 Q300 340 58 150Z';
+  // upper arch
+  let x=0;up.forEach(([w,h],i)=>{
+    const gap=3, top=118+Math.pow(x/250,2)*55, s=1-i*.05;
+    [1,-1].forEach(sg=>{
+      const x0=sg>0?cx+x+gap/2:cx-x-w-gap/2;
+      teeth+=`<rect x="${x0}" y="${top-30}" width="${w}" height="${h*s+30}" rx="${Math.min(14,w/2.6)}" fill="url(#g${id})" />`;
+    });
+    x+=w+gap;
+  });
+  x=0;lo.forEach(([w,h],i)=>{
+    const gap=3, top=212-Math.pow(x/250,2)*48;
+    [1,-1].forEach(sg=>{
+      const x0=sg>0?cx+x+gap/2:cx-x-w-gap/2;
+      teeth+=`<rect x="${x0}" y="${top}" width="${w}" height="${h+30}" rx="10" fill="url(#gl${id})" />`;
+    });
+    x+=w+gap;
+  });
+  svg.innerHTML=`<defs>
+    <clipPath id="m${id}"><path d="${mouth}"/></clipPath>
+    <linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade[0]}"/><stop offset=".72" stop-color="${shade[1]}"/><stop offset="1" stop-color="${shade[2]}"/></linearGradient>
+    <linearGradient id="gl${id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${shade[0]}"/><stop offset=".75" stop-color="${shade[1]}"/><stop offset="1" stop-color="${shade[2]}"/></linearGradient>
+    <radialGradient id="in${id}" cx=".5" cy=".55" r=".6"><stop offset="0" stop-color="#3a0f17"/><stop offset="1" stop-color="#14060a"/></radialGradient>
+    <linearGradient id="lip${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d98a92"/><stop offset="1" stop-color="#a8505d"/></linearGradient>
+  </defs>
+  <g clip-path="url(#m${id})">
+    <rect width="${W}" height="375" fill="url(#in${id})"/>
+    <path d="M40 60 Q300 40 560 60 L560 108 Q300 74 40 108Z" fill="#c9737e" opacity=".9"/>
+    ${teeth}
+    <path d="M58 150 Q300 30 542 150" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="18"/>
+    <path d="M58 150 Q300 340 542 150" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="26"/>
+  </g>
+  <path d="M30 152 Q160 58 250 74 Q300 88 350 74 Q440 58 570 152 Q300 104 30 152Z" fill="url(#lip${id})"/>
+  <path d="M30 152 Q300 230 570 152 Q440 330 300 336 Q160 330 30 152Z" fill="url(#lip${id})"/>
+  <path d="M120 300 Q300 340 480 300" stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+}
+smile(document.getElementById('smileBefore'),['#B99A6B','#D6BB8E','#C8C0AE'],'b');
+smile(document.getElementById('smileAfter'),['#E9DFC8','#F6F0E2','#E2E6EA'],'a');
+const cmp=document.getElementById('cmp'),rng=document.getElementById('cmpRange');
+const setX=v=>cmp.style.setProperty('--x',v+'%');rng.addEventListener('input',()=>setX(rng.value));setX(50);
+const shadeRow=document.getElementById('shadeRow');
+[['A3.5','#D5BA8E'],['A3','#DEC79F'],['A2','#E6D5B3'],['A1','#F0E6CF'],['B1','#F5EFDF']].forEach(([c,h],i,a)=>{
+  shadeRow.insertAdjacentHTML('beforeend',`<span style="display:flex;flex-direction:column;align-items:center;gap:4px"><i style="background:${h}"></i><span class="mono">${c}</span></span>`);
+});
+
+/* ---------- FDI arch ---------- */
+const arch=document.getElementById('arch');
+const typeName={1:'پیش میانی',2:'پیش کناری',3:'نیش',4:'آسیای کوچک اول',5:'آسیای کوچک دوم',6:'آسیای بزرگ اول',7:'آسیای بزرگ دوم',8:'دندان عقل'};
+const quad={1:'فک بالا، سمت راست',2:'فک بالا، سمت چپ',3:'فک پایین، سمت چپ',4:'فک پایین، سمت راست'};
+const care=t=>t<=2?[['VEN','لمینت یا کامپوزیت برای لب‌پریدگی و تغییر رنگ'],['WHT','بلیچینگ برای زردی'],['RST','ترمیم همرنگ پوسیدگی بین دندان‌ها']]
+  :t===3?[['RST','ترمیم سایش لبهٔ نیش'],['VEN','کامپوزیت برای طراحی لبخند'],['SEN','درمان حساسیت طوقهٔ دندان']]
+  :t<=5?[['RST','ترمیم همرنگ پوسیدگی'],['SEN','درمان حساسیت به سرما'],['ALN','الاینر برای جابه‌جایی جزئی']]
+  :t<=7?[['END','عصب‌کشی در صورت درد شبانه یا ضربان‌دار'],['CRN','روکش زیرکونیا پس از عصب‌کشی'],['IMP','ایمپلنت در صورت از دست رفتن دندان']]
+  :[['SRG','جراحی دندان عقل نهفته'],['XRY','بررسی با رادیوگرافی پانورامیک'],['PER','درمان التهاب لثهٔ اطراف دندان']];
+const size=t=>t<=2?[9,12]:t===3?[10,12]:t<=5?[11,11]:[13,12.5];
+const set=(e,o)=>{for(const k in o)e.setAttribute(k,o[k]);return e};
+function addArc(up){
+  const cx=200,cy=up?212:228,rx=165,ry=180;
+  for(let i=0;i<16;i++){
+    const th=Math.PI*(i+.5)/16,sg=up?-1:1,x=cx-rx*Math.cos(th),y=cy+sg*ry*Math.sin(th);
+    const left=i<8,digit=left?8-i:i-7,q=up?(left?1:2):(left?4:3),num=q*10+digit,[a,b]=size(digit);
+    const ang=Math.atan2(sg*ry*Math.cos(th),rx*Math.sin(th))*180/Math.PI;
+    const e=set(document.createElementNS(NS,'ellipse'),{cx:x,cy:y,rx:a,ry:b,class:'t',tabindex:0,role:'button','data-n':num,transform:`rotate(${ang} ${x} ${y})`,'aria-label':'دندان '+num});
+    e.addEventListener('click',()=>pick(num));
+    e.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick(num)}});
+    arch.append(e);
+    const tx=set(document.createElementNS(NS,'text'),{x:cx-(rx-32)*Math.cos(th),y:cy+sg*(ry-32)*Math.sin(th)+3,'text-anchor':'middle'});
+    tx.textContent=num;arch.append(tx);
+  }
+}
+addArc(true);addArc(false);
+[['راست بیمار',36],['چپ بیمار',364]].forEach(([t,x])=>{const tx=set(document.createElementNS(NS,'text'),{x,y:224,'text-anchor':'middle',class:'side'});tx.textContent=t;arch.append(tx)});
+let current=36;
+function pick(n){
+  current=n;const d=n%10,q=Math.floor(n/10);
+  arch.querySelectorAll('.t').forEach(e=>e.classList.toggle('on',+e.dataset.n===n));
+  document.getElementById('tNum').textContent=n;
+  document.getElementById('tName').textContent=typeName[d];
+  document.getElementById('tWhere').textContent=`${quad[q]} · ناحیهٔ ${fa(q)}، دندان ${fa(d)} از خط وسط`;
+  document.getElementById('tCare').innerHTML=care(d).map(([c,t])=>`<li><span class="mono">${c}</span>${t}</li>`).join('');
+}
+pick(36);
+document.getElementById('tUse').onclick=()=>{
+  document.getElementById('fTooth').value=`دندان ${current} (${typeName[current%10]})`;
+  document.getElementById('book').scrollIntoView({behavior:reduce?'auto':'smooth'});
+};
+
+/* ---------- booking ---------- */
+const fmt=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long'});
+let chosenDay=null,chosenTime=null;
+function chipGroup(el,items,onPick){items.forEach(label=>{
+  const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.setAttribute('aria-pressed','false');
+  b.onclick=()=>{[...el.children].forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');onPick(label)};el.append(b)})}
+const days=[];for(let k=1;days.length<6&&k<14;k++){const x=new Date();x.setDate(x.getDate()+k);if(x.getDay()!==5)days.push(fmt.format(x))}
+chipGroup(document.getElementById('days'),days,v=>chosenDay=v);
+chipGroup(document.getElementById('times'),['۹:۳۰','۱۱:۰۰','۱۲:۳۰','۱۶:۰۰','۱۷:۳۰','۱۹:۰۰'],v=>chosenTime=v);
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('fName').value.trim();
+  const phone=document.getElementById('fPhone').value.replace(/[\s-]/g,'').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  const err=document.getElementById('err');
+  if(!name)return err.textContent='نام خود را وارد کنید.';
+  if(!/^09\d{9}$/.test(phone))return err.textContent='شمارهٔ همراه باید ۱۱ رقم باشد و با ۰۹ شروع شود.';
+  if(!chosenDay||!chosenTime)return err.textContent='روز و ساعت مراجعه را انتخاب کنید.';
+  err.textContent='';
+  const box=document.createElement('div');box.className='done';
+  box.innerHTML=`<b>${name.replace(/</g,'&lt;')}</b>، درخواست «${sel.value}» برای ${chosenDay} ساعت ${chosenTime} آماده است.<br><span style="color:var(--muted)">این فرم نمونه است و درخواستی به جایی ارسال نشد.</span>`;
+  e.target.querySelector('.done')?.remove();e.target.append(box);
+});
+
+/* ---------- magnetic buttons ---------- */
+if(fine&&!reduce)document.querySelectorAll('.badge,.btn,.pill').forEach(b=>{
+  b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.3}px)`});
+  b.addEventListener('pointerleave',()=>b.style.transform='');
+});
+</script>
+</body>
+</html>
